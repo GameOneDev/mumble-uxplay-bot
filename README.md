@@ -12,66 +12,41 @@ curl -fsSL https://raw.githubusercontent.com/GameOneDev/mumble-uxplay-bot/main/s
 
 This will:
 - Download the repository
-- Install all system dependencies
-- Build and install UxPlay
+- Install system dependencies
 - Set up the Python environment
 - Configure everything automatically
 
 > **Requirements**: git, curl, python3.8+, and sudo access are required. The script has been tested on Debian/Ubuntu-based systems.
+> 
+> **Note**: UxPlay must be installed separately.
 
 ## Prerequisites
 
 - Linux system
+- **UxPlay** - AirPlay server ([see official installation instructions](https://github.com/FDH2/UxPlay))
 - Python 3.8+
 - Mumble server
 - iOS device (iPhone/iPad) with AirPlay
 
 ## Installation
-
-### 1. Install System Dependencies (Debian/Ubuntu)
+#### Debian/Ubuntu Installation:
 
 ```bash
-# Update package list
+# Install dependencies
 sudo apt update
+sudo apt install -y alsa-utils python3-venv python3-pip git curl
 
-# Install UxPlay dependencies
-sudo apt install -y cmake libavahi-compat-libdnssd-dev libgstreamer1.0-dev \
-    libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav \
-    libplist-dev alsa-utils
-```
 
-### 2. Install and Build UxPlay
-
-```bash
-# Clone UxPlay repository
-git clone https://github.com/FDH2/UxPlay.git
-cd UxPlay
-
-# Build UxPlay
-mkdir build && cd build
-cmake ..
-make
-sudo make install
-
-# Clean up (optional)
-cd ../..
-rm -rf UxPlay
-```
-
-### 3. Set up Python Environment
-
-```bash
 # Clone this repository
 git clone https://github.com/GameOneDev/mumble-uxplay-bot.git
 cd mumble-uxplay-bot
 
-# Create virtual environment
+
+# Set up Python environment
 python3 -m venv .venv
 source .venv/bin/activate
 
-# Install Python dependencies
-pip install pymumble_py3
+pip install -r requirements.txt
 ```
 
 ## Configuration
@@ -128,10 +103,6 @@ Press `Ctrl+C` in the terminal to stop the bot gracefully.
 ### Mumble Connection Issues
 - **Connection refused**: Check server IP, port, and firewall settings
 - **Authentication failed**: Verify username/password
-
-### UxPlay Issues
-- **Build fails**: Ensure all dependencies are installed
-- **No AirPlay device**: Check that UxPlay is running and accessible on the same network as your Apple device
 
 ### ModuleNotFoundError
 If you get `ModuleNotFoundError: No module named 'pymumble_py3'`, the virtual environment is not being used correctly. The script should automatically detect and use the virtual environment. If it doesn't work:

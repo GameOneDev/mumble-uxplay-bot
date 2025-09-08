@@ -41,27 +41,7 @@ sudo apt update
 
 
 echo "Installing system dependencies..."
-sudo apt install -y cmake libavahi-compat-libdnssd-dev libgstreamer1.0-dev \
-    libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav \
-    libplist-dev alsa-utils
-
-
-echo "Installing UxPlay..."
-if [ ! -d "UxPlay" ]; then
-    git clone https://github.com/FDH2/UxPlay.git
-fi
-
-cd UxPlay
-mkdir -p build
-cd build
-cmake ..
-make
-sudo make install
-
-# Clean up UxPlay source
-cd ../..
-rm -rf UxPlay
+sudo apt install -y alsa-utils python3-venv python3-pip git curl
 
 
 echo "Setting up Python environment..."
@@ -73,6 +53,8 @@ echo
 echo "=== Setup Complete! ==="
 echo
 echo "Repository downloaded to: $(pwd)"
+echo
+echo "IMPORTANT: You need to install UxPlay separately before running the bot."
 echo
 echo "To use the bot:"
 echo "1. Edit main.py with your Mumble server details"
